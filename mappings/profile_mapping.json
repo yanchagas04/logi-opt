@@ -1,0 +1,104 @@
+{
+  "device": "PRO 2 LIGHTSPEED",
+  "active_profile": 1,
+  "dpi_modes": [
+    {
+      "slot": 1,
+      "dpi": 263,
+      "active": true
+    },
+    {
+      "slot": 2,
+      "dpi": 261,
+      "active": false
+    },
+    {
+      "slot": 3,
+      "dpi": 264,
+      "active": false
+    },
+    {
+      "slot": 4,
+      "dpi": 4096,
+      "active": false
+    },
+    {
+      "slot": 5,
+      "dpi": 65290,
+      "active": false
+    }
+  ],
+  "buttons": [
+    {
+      "button_index": 0,
+      "name": "Left Click",
+      "raw_hex": "0x01 0x00",
+      "type_byte": "0x1",
+      "code_byte": "0x0"
+    },
+    {
+      "button_index": 1,
+      "name": "Right Click",
+      "raw_hex": "0x00 0x00",
+      "type_byte": "0x0",
+      "code_byte": "0x0"
+    },
+    {
+      "button_index": 2,
+      "name": "Middle Click",
+      "raw_hex": "0x00 0x00",
+      "type_byte": "0x0",
+      "code_byte": "0x0"
+    },
+    {
+      "button_index": 3,
+      "name": "Lateral Front Left (BTN_EXTRA)",
+      "raw_hex": "0x00 0x00",
+      "type_byte": "0x0",
+      "code_byte": "0x0"
+    },
+    {
+      "button_index": 4,
+      "name": "Lateral Rear Left (BTN_SIDE)",
+      "raw_hex": "0x00 0x00",
+      "type_byte": "0x0",
+      "code_byte": "0x0"
+    },
+    {
+      "button_index": 5,
+      "name": "Lateral Front Right (BTN_TASK)",
+      "raw_hex": "0x00 0x00",
+      "type_byte": "0x0",
+      "code_byte": "0x0"
+    },
+    {
+      "button_index": 6,
+      "name": "Lateral Rear Right (BTN_BACK)",
+      "raw_hex": "0x00 0x00",
+      "type_byte": "0x0",
+      "code_byte": "0x0"
+    },
+    {
+      "button_index": 7,
+      "name": "Bottom DPI Cycle (BTN_FORWARD)",
+      "raw_hex": "0x00 0x00",
+      "type_byte": "0x0",
+      "code_byte": "0x0"
+    },
+    {
+      "button_index": 8,
+      "name": "Auxiliary / Macro 1",
+      "raw_hex": "0x01 0x00",
+      "type_byte": "0x1",
+      "code_byte": "0x0"
+    },
+    {
+      "button_index": 9,
+      "name": "Auxiliary / Macro 2",
+      "raw_hex": "0x00 0x00",
+      "type_byte": "0x0",
+      "code_byte": "0x0"
+    }
+  ],
+  "raw_dump_hex": "0107010501081000ff0a040000000000010000000000000000000000000000000100000000000000000000000000000001000000000000000000000000000000"
+}

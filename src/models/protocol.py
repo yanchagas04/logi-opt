@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import List
 from models.enums import ErrorCode, FunctionType
 
+
 @dataclass
 class ProtocolInfo:
     """Metadados e parâmetros operacionais globais do protocolo HID++ 2.0."""
@@ -57,3 +58,15 @@ class ControlTask:
     task_id: int
     name: str
     description: str
+
+
+@dataclass
+class HIDMessage:
+    # Byte 0: 0x11 (beginning of the message)
+    # Byte 1: Device Index
+    # Byte 2: Feature Index
+    # Byte 3: Function ID
+    # Others: Params
+    feature_idx: int
+    function_idx: int
+    parameters: bytes

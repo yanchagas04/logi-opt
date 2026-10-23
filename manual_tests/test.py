@@ -1,23 +1,37 @@
-import easyhid
-from services.MouseController import MouseController
+import subprocess
+
 from services.HIDController import HIDController
-from loguru import logger
+from services.MouseController import MouseController
 
-device_enumeration = easyhid.Enumeration()
-devices = device_enumeration.find(manufacturer="Logitech", vid=0x046D)
+# 1. Encontra exclusivamente dispositivos que respondem como mouse
+available_mice = HIDController.get_logitech_devices()
 
-print(type(devices[0]))
+if not available_mice:
+    print("Nenhum mouse Logitech encontrado (mova o mouse se estiver dormindo).")
+    exit(1)
 
-# for device in devices:
-#     print(device)
+# 2. Escolha do mouse (aqui pegamos o primeiro da lista como exemplo)
+while True:
+    for i, mouse in enumerate(available_mice):
+        print(f"[{i}] {mouse.product_string} ({mouse.path})")
+    try:
+        idx = int(input("Selecionar mouse -> "))
+    except IndexError:
+        subprocess.run("clear")
+        print(f"Escolha um número da lista.\n")
+    except ValueError:
+        subprocess.run("clear")
+        print(f"Digite um número.\n")
+    except Exception as e:
+        subprocess.run("clear")
+        print(f"Erro. Digite novamente")
+    finally:
+        selected_mouse = available_mice[idx]
+        break
 
-mouse_controller = MouseController()
-mouse_controller.connect()
-try:
-    type_name = HIDController.get_device_type(device=mouse_controller.device)
-    logger.log(f"Type of {mouse_controller.device_name}: {type_name}")
-except easyhid.HIDException:
-    logger.error("No device connected")
-except Exception as e:
-    logger.error(f"Something went wrong: {e}")
-mouse_controller.disconnect()
+
+# 3. Conecta passando o mouse selecionado
+controller = MouseController()
+if controller.connect(target_device=selected_mouse):
+    print(f"Pronto para envio de comandos para: {controller.device_name}")
+    controller.disconnect()

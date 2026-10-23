@@ -1,72 +1,34 @@
 from dataclasses import dataclass, field
-from typing import List
-from models.enums import ErrorCode, FunctionType
+from enum import IntEnum
+from typing import Optional
+
+class HIDPPReportType(IntEnum):
+    SHORT = 0x10
+    LONG = 0x11
+    VERY_LONG = 0x12
 
 
-@dataclass
-class ProtocolInfo:
-    """Metadados e parâmetros operacionais globais do protocolo HID++ 2.0."""
-    name: str = "Logitech HID++ 2.0 Draft Specification"
-    version: str = "2.0"
-    doc_date: str = "2012-06-04"
-    short_report_id: str = "0x10"
-    long_report_id: str = "0x11"
-    endianness: str = "Big-Endian"
+class HIDPPErrorCode(IntEnum):
+    SUCCESS = 0x00
+    UNKNOWN = 0x01
+    INVALID_ARGUMENT = 0x02
+    OUT_OF_RANGE = 0x03
+    HW_ERROR = 0x04
+    BUSY = 0x05
+    INVALID_FEATURE_INDEX = 0x06
+    INVALID_FUNCTION_ID = 0x07
+    RESOURCE_ERROR = 0x08
+    UNAVAILABLE = 0x09
 
 
-@dataclass
-class ErrorCodeDefinition:
-    """Definição tabular de um código de erro."""
-    code: ErrorCode
-    name: str
-    description: str
-
-
-@dataclass
-class FeatureFunction:
-    """Função, evento de difusão ou ASE associado a uma feature."""
+@dataclass(frozen=True)
+class HIDPPMessage:
+    report_id: int
+    device_index: int
+    feature_index: int
     function_id: int
-    name: str
-    function_type: FunctionType
-    description: str
-    request_params: str
-    response_results: str
-
-
-@dataclass
-class Feature:
-    """Feature HID++ 2.0 com a sua coleção de funções suportadas."""
-    feature_id: str
-    name: str
-    description: str
-    functions: List[FeatureFunction] = field(default_factory=list)
-
-
-@dataclass
-class SpecialControlID:
-    """Control ID físico para teclas especiais e botões multimédia (Feature 0x1B00)."""
-    control_id: int
-    control_id_hex: str
-    description: str
-    hid_mapping: str
-    suggested_task_id: int
-
-
-@dataclass
-class ControlTask:
-    """Ação/tarefa atribuível a um botão ou tecla multimédia."""
-    task_id: int
-    name: str
-    description: str
-
-
-@dataclass
-class HIDMessage:
-    # Byte 0: 0x11 (beginning of the message)
-    # Byte 1: Device Index
-    # Byte 2: Feature Index
-    # Byte 3: Function ID
-    # Others: Params
-    feature_idx: int
-    function_idx: int
+    software_id: int
     parameters: bytes
+    is_error: bool = False
+    error_code: Optional[HIDPPErrorCode] = None
+    raw: bytes = field(default=b"", repr=False)
